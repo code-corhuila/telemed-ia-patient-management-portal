@@ -5,7 +5,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ApiError } from 'shell/apiError';
 import { ProfileFormComponent } from '../components/profile-form.component';
 import { PatientApiService } from '../data/patient-api.service';
 import { UpdatePatientPayload } from '../model/patient';
@@ -16,6 +15,13 @@ interface ViewModel {
   readonly error: ApiError | null;
   readonly patient: Patient | null;
   readonly submitting: boolean;
+}
+
+interface ApiError {
+  status: number;
+  code: string;
+  message: string;
+  traceId?: string;
 }
 
 @Component({
