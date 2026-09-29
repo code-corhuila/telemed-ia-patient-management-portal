@@ -10,31 +10,52 @@
       "prefix": "app",
       "architect": {
         "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "telemed-ia-patient-management-portal:esbuild",
+            "outputPath": "dist/telemed-ia-patient-management-portal"
+          },
+          "configurations": {
+            "production": {
+              "target": "telemed-ia-patient-management-portal:esbuild:production"
+            },
+            "development": {
+              "target": "telemed-ia-patient-management-portal:esbuild:development"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "esbuild": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "src/main.ts",
+            "browser": "src/bootstrap.ts",
             "index": "src/index.html",
             "tsConfig": "tsconfig.app.json",
             "assets": [],
-            "styles": ["src/styles.css"]
+            "styles": ["src/styles.css"],
+            "externalDependencies": [
+              "shell/apiClient",
+              "shell/session",
+              "shell/apiError"
+            ]
           },
           "configurations": {
             "production": {
               "optimization": true,
-              "extractLicenses": true,
               "sourceMap": false,
               "outputHashing": "all"
             },
             "development": {
               "optimization": false,
-              "extractLicenses": false,
               "sourceMap": true
             }
-          },
-          "defaultConfiguration": "production"
+          }
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4201
+          },
           "configurations": {
             "production": {
               "buildTarget": "telemed-ia-patient-management-portal:build:production"
