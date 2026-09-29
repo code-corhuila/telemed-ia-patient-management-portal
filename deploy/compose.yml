@@ -1,0 +1,22 @@
+name: telemed-ia-patient-management-portal
+
+services:
+  patient-portal:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: telemed-ia-patient-management-portal:local
+    container_name: telemed-ia-patient-management-portal
+    restart: unless-stopped
+    ports:
+      # The portal must be reachable by the browser so the shell can fetch
+      # its remoteEntry.json. Published on 4201 to match the URL already
+      # declared in the shell's federation.manifest.json.
+      - "4201:80"
+    networks:
+      - platform
+
+networks:
+  platform:
+    external: true
+    name: platform
