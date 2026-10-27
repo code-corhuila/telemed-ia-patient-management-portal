@@ -3,8 +3,8 @@
  */
 
 export interface Patient {
-  id: number;
-  userId: number;
+  id: string;
+  userId: string;
   birthDate: string | null;
   phone: string | null;
   medicalHistory: string | null;
@@ -21,15 +21,3 @@ export interface CreatePatientPayload {
 }
 
 export type UpdatePatientPayload = CreatePatientPayload;
-
-export interface PageMeta {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-}
-
-export interface Page<T> {
-  data: T[];
-  meta: PageMeta;
-}
