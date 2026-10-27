@@ -3,7 +3,6 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   CreatePatientPayload,
-  Page,
   Patient,
   UpdatePatientPayload,
 } from '../model/patient';
@@ -50,12 +49,5 @@ export class PatientApiService {
   createProfile(payload: CreatePatientPayload, idempotencyKey: string): Observable<Patient> {
     const h = this.headers().set('Idempotency-Key', idempotencyKey);
     return this.http.post<Patient>(`${this.baseUrl}/patients`, payload, { headers: h });
-  }
-
-  list(page = 1, limit = 20): Observable<Page<Patient>> {
-    return this.http.get<Page<Patient>>(`${this.baseUrl}/patients`, {
-      headers: this.headers(),
-      params: { page, limit },
-    });
   }
 }
