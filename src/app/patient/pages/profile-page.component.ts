@@ -28,7 +28,48 @@ interface ApiError {
   selector: 'app-profile-page',
   standalone: true,
   imports: [ProfileFormComponent],
+  styleUrl: '../patient-theme.css',
+  styles: [
+    `
+      .profile {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 32px 24px;
+      }
+
+      .profile__header {
+        margin-bottom: 24px;
+      }
+
+      .profile__eyebrow {
+        margin: 0 0 6px;
+        color: var(--color-primary);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .profile__title {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      .profile__subtitle {
+        margin: 6px 0 0;
+        color: var(--color-text-soft);
+      }
+    `,
+  ],
   template: `
+    <section class="profile" aria-labelledby="profile-title">
+      <header class="profile__header">
+        <p class="profile__eyebrow">Mi cuenta</p>
+        <h1 class="profile__title" id="profile-title">Mi perfil</h1>
+        <p class="profile__subtitle">Tus datos de salud para preparar cada atención.</p>
+      </header>
+
     @if (vm().loading) {
       <section class="state" aria-live="polite">
         <p>Cargando perfil…</p>
@@ -55,6 +96,7 @@ interface ApiError {
         </button>
       </section>
     }
+    </section>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

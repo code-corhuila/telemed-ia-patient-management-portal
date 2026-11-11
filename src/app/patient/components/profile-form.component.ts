@@ -27,8 +27,40 @@ function birthDateNotFuture(control: AbstractControl): ValidationErrors | null {
   selector: 'app-profile-form',
   standalone: true,
   imports: [ReactiveFormsModule],
+  styleUrl: '../patient-theme.css',
+  styles: [
+    `
+      .profile-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        padding: 24px;
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        background: var(--color-surface);
+        box-shadow: 0 1px 2px rgb(15 23 42 / 4%);
+      }
+
+      .field--wide,
+      .profile-form__actions {
+        grid-column: 1 / -1;
+      }
+
+      .profile-form__actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      @media (max-width: 640px) {
+        .profile-form {
+          grid-template-columns: 1fr;
+          padding: 16px;
+        }
+      }
+    `,
+  ],
   template: `
-    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <form class="profile-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <div class="field">
         <label for="birthDate">Fecha de nacimiento</label>
         <input
@@ -64,7 +96,7 @@ function birthDateNotFuture(control: AbstractControl): ValidationErrors | null {
         }
       </div>
 
-      <div class="field">
+      <div class="field field--wide">
         <label for="medicalHistory">Antecedentes médicos</label>
         <textarea
           id="medicalHistory"
@@ -73,7 +105,7 @@ function birthDateNotFuture(control: AbstractControl): ValidationErrors | null {
         ></textarea>
       </div>
 
-      <div class="field">
+      <div class="field field--wide">
         <label for="description">Descripción</label>
         <textarea
           id="description"
@@ -82,9 +114,11 @@ function birthDateNotFuture(control: AbstractControl): ValidationErrors | null {
         ></textarea>
       </div>
 
-      <button type="submit" [disabled]="submitting || form.invalid">
-        {{ submitting ? 'Guardando…' : 'Guardar' }}
-      </button>
+      <div class="profile-form__actions">
+        <button type="submit" [disabled]="submitting || form.invalid">
+          {{ submitting ? 'Guardando…' : 'Guardar cambios' }}
+        </button>
+      </div>
     </form>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
