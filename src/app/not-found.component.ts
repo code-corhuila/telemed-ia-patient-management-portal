@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-not-found',
   standalone: true,
   imports: [RouterLink],
+  styleUrl: './patient/patient-theme.css',
   template: `
     <section class="state state--error">
       <h2>Página no encontrada</h2>
